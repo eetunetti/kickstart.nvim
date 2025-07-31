@@ -243,6 +243,17 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  {
+    'S1M0N38/love2d.nvim',
+    event = 'VeryLazy',
+    version = '2.*',
+    opts = {},
+    keys = {
+      { '<leader>v', ft = 'lua', desc = 'LÖVE' },
+      { '<leader>vv', '<cmd>LoveRun<cr>', ft = 'lua', desc = 'Run LÖVE' },
+      { '<leader>vs', '<cmd>LoveStop<cr>', ft = 'lua', desc = 'Stop LÖVE' },
+    },
+  },
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -692,7 +703,15 @@ require('lazy').setup({
                 callSnippet = 'Replace',
               },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+              diagnostics = {
+                globals = { 'love', 'vim' },
+                disable = { 'missing-fields' },
+              },
+              workspace = {
+                library = {
+                  '${3rd}/love2d/library',
+                },
+              },
             },
           },
         },
